@@ -11,6 +11,17 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div id="main-content" class="ui piled text container segment">
+      <div class="ui grid">
+          <div class="four wide column">
+            <%= render("layouts/navigation") %>
+          </div>
+          <div class="ui twelve wide stretched column">
+            <div id="right-content" class="ui secondary segment">
+              <%= yield %>
+            </div>
+          </div>
+          <%= render("layouts/footer") %>
+    </div>
   </body>
 </html>

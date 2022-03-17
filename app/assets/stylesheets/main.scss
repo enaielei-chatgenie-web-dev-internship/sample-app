@@ -1,9 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans&display=swap');
+$font-url: 'https://fonts.googleapis.com/css2?family=DM+Sans&display=swap' !default;
+$font-name: "DM Sans" !default;
+@import "semantic-ui";
 
-* {
-    font-family: 'DM Sans', sans-serif;
+#main-content {
+    margin-top: 5em;
+    margin-bottom: 5em;
+
+    & > .ui.grid {
+        margin-bottom: 2em;
+    }
 }
 
-.code {
-    font-family: 'DM Mono', monospace !important;
+#right-content {
+    min-height: 25em;
 }
