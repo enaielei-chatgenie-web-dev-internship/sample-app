@@ -1,15 +1,37 @@
 <%
     name = controller.action_name
-    navs = ["home", "about"]
+    navs = [
+        {
+            action: "new",
+            controller: "users",
+            text: "Auth",
+            icon: "green key"
+        },
+        {
+            action: "home",
+            controller: "static_pages",
+            text: "Home",
+            icon: "green home"
+        },
+        {
+            action: "about",
+            controller: "static_pages",
+            text: "About",
+            icon: "green info circle"
+        }
+    ]
     icons = ["home green", "info circle green"]
 %>
 <div class="ui left attached fluid vertical pointing compact menu">
     <% for nav in navs%>
         <%
-            icon = icons[navs.index(nav)]
-            body = raw("#{semantic_icon(icon)}#{nav.capitalize()}")
+            action = nav[:action]
+            controller = nav[:controller]
+            text = nav[:text]
+            icon = nav[:icon]
+            body = raw("#{semantic_icon(icon)}#{text}")
         %>
-        <%= link_to(body, url_for(action: nav, controller: "static_pages"),
-            class: ["item", ("active" if nav == name)].join(" ")) %>
+        <%= link_to(body, url_for(action: action, controller: controller),
+            class: ["item", ("active" if action == name)].join(" ")) %>
     <% end %>
 </div>
