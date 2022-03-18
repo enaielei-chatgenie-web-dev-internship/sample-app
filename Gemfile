@@ -51,6 +51,7 @@ gem "bootsnap", require: false
 gem "ffi"
 gem 'fomantic-ui-sass'
 gem 'rails-controller-testing'
+gem "bcrypt"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
