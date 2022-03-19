@@ -8,3 +8,4 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 
 pin_all_from "app/javascript/custom", under: "custom"
 pin "jquery", to: "https://ga.jspm.io/npm:jquery@3.6.0/dist/jquery.js"
+pin "fomantic-ui", to: "https://ga.jspm.io/npm:fomantic-ui@2.8.8/dist/semantic.js"

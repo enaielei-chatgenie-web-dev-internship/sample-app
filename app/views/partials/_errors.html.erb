@@ -1,0 +1,14 @@
+<% if @user.errors.any?() %>
+    <div class="ui error message" style="display: block;">
+        <i class="close icon"></i>
+        <div class="header">
+            The server rejected your request. Why?
+        </div>
+        <ul>
+            <% for error in @user.errors.full_messages() %>
+                <li><%= error %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+<div class="ui error message form-error-message"></div>

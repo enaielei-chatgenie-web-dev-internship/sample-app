@@ -1,0 +1,21 @@
+<% provide(:title, @user.name) %>
+<% for key, val in flash
+    type = val["type"]
+    title = val["title"]
+    subtitle = val["subtitle"]
+%>
+    <div class="ui <%= type %> message">
+        <i class="close icon"></i>
+        <div class="header">
+            <%= title %>
+        </div>
+        <p><%= subtitle %></p>
+    </div>
+<% end %>
+<h2 class="ui center aligned icon header">
+    <%= get_profile_image(@user, class: "ui circular image") %>
+    <div class="content">
+        <%= @user.name %>
+        <div class="sub header"><%= @user.email %></div>
+    </div>
+</h2>

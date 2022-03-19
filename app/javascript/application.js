@@ -2,10 +2,8 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-//= require jquery
-//= require jquery_ujs
-
 // Loads all Semantic javascripts
+//= require semantic-ui/form
 //= require semantic-ui
 
-import "custom/main"
+// import "custom/main"

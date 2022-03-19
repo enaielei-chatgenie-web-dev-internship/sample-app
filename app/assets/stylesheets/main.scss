@@ -1,4 +1,4 @@
-$font-url: 'https://fonts.googleapis.com/css2?family=DM+Sans&display=swap' !default;
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans&display=swap');
 $font-name: "DM Sans" !default;
 @import "semantic-ui";
 
@@ -12,7 +12,27 @@ $font-name: "DM Sans" !default;
 }
 
 #right-content {
-    min-height: 30em;
-    max-height: 50em;
+    // min-height: 30em;
+    // max-height: 100em;
     overflow-y: auto;
+}
+
+#navigation-parent {
+    padding-right: 0;
+}
+
+.debug_dump {
+    box-sizing: border-box;
+    display: block;
+    // width: 100%;
+    padding: 0.75em;
+    margin: 0.75em;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background: rgba(211, 211, 211, 0.233);
+    max-width: 50%;
+    font-family: "DM Mono", 'Courier New', Courier, monospace;
+    font-size: 0.75em;
 }

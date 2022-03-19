@@ -8,22 +8,28 @@
 
         <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
         <%= javascript_importmap_tags %>
+        
+        <%= javascript_tag(nil, src: "https://code.jquery.com/jquery-3.6.0.min.js", integrity: "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=", crossorigin: "anonymous") %>
+        <%= javascript_tag(nil, src: "https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.js") %>
     </head>
 
     <body>
         <div id="main-content" class="ui piled text container segment">
             <%= render("layouts/header") %>
             <div class="ui grid">
-                    <div class="four wide column">
+                    <div id="navigation-parent" class="four wide column">
                         <%= render("layouts/navigation") %>
                     </div>
                     <div class="ui twelve wide stretched column">
-                        <div id="right-content" class="ui secondary segment">
+                        <div id="right-content" class="ui segment">
                             <%= yield %>
                         </div>
                     </div>
                     <%= render("layouts/footer") %>
             </div>
         </div>
+        <%= debug(params) if Rails.env.development?() %>
+
+        <%= javascript_tag(nil, src: javascript_path("custom/main.js")) %>
     </body>
 </html>

@@ -1,9 +1,27 @@
-
-import $ from "jquery";
-
 $(() => {
-    // $('.menu > .item').on('click', function() {
-    //     $(this).parent().children(".item").removeClass("active");
-    //     $(this).addClass('active');
-    // }); 
+    $(".form").form({
+        on: "blur",
+        selector: {
+            message: ".form-error-message"
+        },
+        fields: {
+            "user[email]": ["email", "empty", "maxLength[300]"],
+            "user[name]": ["empty", "maxLength[150]"],
+            "user[password]": ["empty", "minLength[6]"],
+            "user[password_confirmation]": {
+                rules: [
+                    {
+                        type: "match[user[password]]",
+                        prompt: "Password confirmation must match password"
+                    }
+                ]
+            }
+        }
+    });
+
+    $('.message .close').on('click', function() {
+        $(this)
+        .closest('.message')
+        .transition('fade');
+    });
 });
