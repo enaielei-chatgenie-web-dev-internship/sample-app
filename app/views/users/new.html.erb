@@ -6,7 +6,8 @@
 <div class="ui divider"></div>
 <%= form_with(model: @user,
     id: "sign-up-form",
-    class: "ui form"
+    class: "ui form",
+    url: auth_sign_up_path()
 ) do |form| %>
     <div class="field">
         <%= form.label(:email) %>

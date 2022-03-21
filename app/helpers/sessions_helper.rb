@@ -9,6 +9,10 @@ module SessionsHelper
         end
     end
 
+    def signed_in()
+        return !!session[:user_id]
+    end
+
     def sign_out()
         session.delete(:user_id)
     end

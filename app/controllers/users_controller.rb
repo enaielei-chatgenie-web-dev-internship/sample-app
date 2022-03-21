@@ -4,7 +4,10 @@ class UsersController < ApplicationController
   end
 
   def new()
-    @user = User.new(params[:user])
+    @user = get_user() || User.new()
+    if signed_in()
+      redirect_to(@user, status: :see_other)
+    end
   end
 
   def create()
