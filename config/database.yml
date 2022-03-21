@@ -82,5 +82,10 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: sample_app_production
+    adapter: postgresql
+    encoding: unicode
+    # For details on connection pooling, see Rails configuration guide
+    # https://guides.rubyonrails.org/configuring.html#database-pooling
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    username: sample_app
+    password: <%= ENV['SAMPLE_APP_DATABASE_PASSWORD'] %>
