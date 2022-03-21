@@ -37,9 +37,9 @@
     </div>
     <div class="ui right aligned fitted basic segment">
         <div class="ui buttons">
-            <button class="ui button" name="commit" value="sign-in" type="submit">Sign In</button>
+            <%# <button class="ui button" name="commit" value="sign-in" type="submit">Sign In</button> %>
             <%# <%= form.submit("Sign In", class: "ui button") %>
-            <%# <%= link_to("Sign In", "#", class: "ui button") %>
+            <%= link_to("Sign In", auth_sign_in_path(), class: "ui button") %>
             <div class="or"></div>
             <%= form.submit("Submit", class: "ui positive button") %>
         </div>

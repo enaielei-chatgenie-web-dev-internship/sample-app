@@ -1,4 +1,18 @@
-<% if @user.errors.any?() %>
+<% if defined?(errors) && errors && errors.any?() %>
+    <div class="ui error message" style="display: block;">
+        <i class="close icon"></i>
+        <div class="header">
+            The server rejected your request. Why?
+        </div>
+        <ul>
+            <% for error in errors %>
+                <li><%= error %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+
+<% if @user && @user.errors.any?() %>
     <div class="ui error message" style="display: block;">
         <i class="close icon"></i>
         <div class="header">
@@ -11,4 +25,5 @@
         </ul>
     </div>
 <% end %>
+
 <div class="ui error message form-error-message"></div>

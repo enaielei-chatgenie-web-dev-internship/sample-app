@@ -4,13 +4,14 @@ class UsersController < ApplicationController
   end
 
   def new()
-    @user = User.new(params.include?(:user) ? params[:user] : {})
+    @user = User.new(params[:user])
   end
 
   def create()
     @user = User.new(filter_params())
 
     if @user.save()
+      sign_in(@user)
       flash[:signed_up] = {
         "title": "Welcome aboard!",
         "subtitle": "Your account has been successfully created!",
@@ -18,7 +19,7 @@ class UsersController < ApplicationController
       }
       redirect_to(@user)
     else
-      return render(:new, user: @user, status: :unprocessable_entity)
+      return render(:new, status: :unprocessable_entity)
     end
   end
 

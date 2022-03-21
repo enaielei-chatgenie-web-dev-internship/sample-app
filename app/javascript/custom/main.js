@@ -1,5 +1,5 @@
 $(() => {
-    $(".form").form({
+    $("#sign-up-form").form({
         on: "blur",
         selector: {
             message: ".form-error-message"
@@ -16,6 +16,17 @@ $(() => {
                     }
                 ]
             }
+        }
+    });
+
+    $("#sign-in-form").form({
+        on: "blur",
+        selector: {
+            message: ".form-error-message"
+        },
+        fields: {
+            "user[email]": ["email", "empty"],
+            "user[password]": ["empty"]
         }
     });
 

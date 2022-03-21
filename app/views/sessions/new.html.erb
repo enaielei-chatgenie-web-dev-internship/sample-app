@@ -1,0 +1,40 @@
+<% provide(:title, "Sign In") %>
+<%
+    errors = flash[:errors]
+    user = params[:user] ? params[:user] : {}
+%>
+<h2 class="ui header">
+    Sign In
+    <div class="sub header">Already a member? Gain authorized access to different features!</div>
+</h2>
+<div class="ui divider"></div>
+<%= form_with(scope: :user,
+    id: "sign-in-form",
+    class: "ui form",
+    url: auth_sign_in_path()
+) do |form| %>
+    <div class="field">
+        <%= form.label(:email) %>
+        <div class="ui left icon input">
+            <%= form.email_field(:email, placeholder: "juan.dela.cruz@email.com", value: user[:email]) %>
+            <i class="at icon"></i>
+        </div>
+    </div>
+    <div class="field">
+        <%= form.label(:password) %>
+        <div class="ui left icon input">
+            <%= form.password_field(:password, placeholder: "@yourPassword1234", value: nil) %>
+            <i class="key icon"></i>
+        </div>
+    </div>
+    <div class="ui right aligned fitted basic segment">
+        <div class="ui buttons">
+            <%# <button class="ui button" name="commit" value="sign-up" type="submit">Sign Up</button> %>
+            <%# <%= form.submit("Sign In", class: "ui button") %>
+            <%= link_to("Sign Up", auth_sign_up_path(), class: "ui button") %>
+            <div class="or"></div>
+            <%= form.submit("Submit", class: "ui positive button") %>
+        </div>
+    </div>
+    <%= render("partials/errors", errors: errors) %>
+<% end %>

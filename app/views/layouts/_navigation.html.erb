@@ -1,26 +1,43 @@
 <%
+    user = get_user()
     name = controller.action_name
     navs = [
         {
-            url: url_for(action: "new", controller: "users"),
+            url: !user ? auth_sign_in_url() : nil,
             active: "new" == name,
             text: "Auth",
-            icon: "green lock"
+            icon: "green lock",
+            data: nil
         },
         {
-            url: !!@user && !@user.new_record?() ? @user : nil,
+            url: user,
             active: "show" == name,
-            text: "Home",
-            icon: "green home"
+            text: "Profile",
+            icon: "green user circle",
+            data: nil
         },
         {
-            url: url_for(action: "about", controller: "static_pages"),
+            url: user ? "#" : nil,
+            active: "show" == name,
+            text: "Settings",
+            icon: "green cog circle",
+            data: nil
+        },
+        {
+            url: about_url(),
             active: "about" == name,
             text: "About",
-            icon: "green info circle"
+            icon: "green info circle",
+            data: nil
+        },
+        {
+            url: user ? auth_sign_out_url() : nil,
+            active: "destroy" == name,
+            text: "Sign Out",
+            icon: "green door open",
+            data: {turbo_method: :delete, turbo_confirm: 'Are you sure you want to sign out?'}
         }
     ]
-    icons = ["home green", "info circle green"]
 %>
 <nav id="navigation" class="ui fluid vertical pointing compact menu">
     <% for nav in navs%>
@@ -29,10 +46,11 @@
             active = nav[:active]
             text = nav[:text]
             icon = nav[:icon]
+            data = nav[:data]
             body = raw("#{semantic_icon(icon)}#{text}")
         %>
-        <% if url != nil %>
-            <%= link_to(body, url, class: ["item", ("active" if active)].join(" ")) %>
+        <% if url %>
+            <%= link_to(body, url, data: data, class: ["item", ("active" if active)].join(" ")) %>
         <% end %>
     <% end %>
 </nav>
