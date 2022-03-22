@@ -3,7 +3,7 @@
     name = controller.action_name
     navs = [
         {
-            url: !user ? auth_sign_in_url() : nil,
+            url: !user ? auth_sign_in_path() : nil,
             active: "new" == name,
             text: "Auth",
             icon: "green lock",
@@ -24,14 +24,14 @@
             data: nil
         },
         {
-            url: about_url(),
+            url: about_path(),
             active: "about" == name,
             text: "About",
             icon: "green info circle",
             data: nil
         },
         {
-            url: user ? auth_sign_out_url() : nil,
+            url: user ? auth_sign_out_path() : nil,
             active: "destroy" == name,
             text: "Sign Out",
             icon: "green door open",

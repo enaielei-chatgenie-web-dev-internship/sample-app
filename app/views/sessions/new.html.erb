@@ -1,14 +1,14 @@
 <% provide(:title, "Sign In") %>
 <%
     errors = flash[:errors]
-    user = params[:user] ? params[:user] : {}
+    user = params[:session] || {}
 %>
 <h2 class="ui header">
     Sign In
     <div class="sub header">Already a member? Gain authorized access to different features!</div>
 </h2>
 <div class="ui divider"></div>
-<%= form_with(scope: :user,
+<%= form_with(scope: :session,
     id: "sign-in-form",
     class: "ui form",
     url: auth_sign_in_path()

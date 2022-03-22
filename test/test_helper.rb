@@ -11,6 +11,6 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   def is_signed_in()
-    return !session[:user_id].nil?()
+    return !!session[:user_id]
   end
 end

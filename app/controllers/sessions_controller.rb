@@ -34,7 +34,7 @@ class SessionsController < ApplicationController
   end
 
   private def filter_params()
-    return params.require(:user).permit(
+    return params.require(:session).permit(
       :email, :password)
   end
 end
