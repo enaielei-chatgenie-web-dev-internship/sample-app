@@ -27,6 +27,13 @@
             <i class="key icon"></i>
         </div>
     </div>
+    <div class="field">
+        <div class="ui checkbox">
+            <input type="checkbox" class="hidden">
+            <%= form.check_box(:remembered) %>
+            <%= form.label(:remembered, "Remember my session") %>
+        </div>
+    </div>
     <div class="ui right aligned fitted basic segment">
         <div class="ui buttons">
             <%# <button class="ui button" name="commit" value="sign-up" type="submit">Sign Up</button> %>

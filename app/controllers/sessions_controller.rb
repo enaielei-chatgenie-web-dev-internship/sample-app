@@ -13,6 +13,7 @@ class SessionsController < ApplicationController
     if @user
       if @user.authenticate(session[:password])
         sign_in(@user)
+        session[:remembered] == "1" ? remember(@user) : forget(@user)
         redirect_to(@user)
         return
       else
@@ -29,12 +30,12 @@ class SessionsController < ApplicationController
   end
 
   def destroy()
-    sign_out()
+    sign_out(@user) if signed_in()
     redirect_to(root_url(), status: :see_other)
   end
 
   private def filter_params()
     return params.require(:session).permit(
-      :email, :password)
+      :email, :password, :remembered)
   end
 end

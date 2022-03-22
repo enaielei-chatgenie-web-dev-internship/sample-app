@@ -2,7 +2,7 @@ require "test_helper"
 
 class UsersSigninTest < ActionDispatch::IntegrationTest
   def setup()
-    @user = users[0]
+    @user = users(:tester)
   end
 
   test("login with invalid information") do
@@ -79,9 +79,22 @@ class UsersSigninTest < ActionDispatch::IntegrationTest
     delete(auth_sign_out_path())
     assert_not(is_signed_in())
     assert_redirected_to(root_url())
+    # Simulate user cliking logout in a second window
+    delete(auth_sign_out_path())
     follow_redirect!()
     assert_select("a[href=?]", auth_sign_in_path())
     assert_select("a[href=?]", auth_sign_out_path(), count: 0)
     assert_select("a[href=?]", user_path(@user), count: 0)
+  end
+
+  test("login with remembering") do
+    sign_in_as(@user, remembered: "1")
+    assert_not_empty(cookies[:remember_token])
+  end
+
+  test("login without remembering") do
+    sign_in_as(@user, remembered: "1")
+    sign_in_as(@user, remembered: "0")
+    assert_empty(cookies[:remember_token])
   end
 end
