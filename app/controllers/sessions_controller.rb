@@ -14,16 +14,24 @@ class SessionsController < ApplicationController
       if @user.authenticate(session[:password])
         sign_in(@user)
         session[:remembered] == "1" ? remember(@user) : forget(@user)
-        redirect_to(@user)
+        redirect_back_or(@user)
         return
       else
-        flash.now[:errors] = [
-          "The password is incorrect"
+        flash.now[:messages] = [
+          {
+            "title": "Sign in failure",
+            "subtitles": ["The password is incorrect"],
+            "type": "negative"
+          }
         ]
       end
     else
-      flash.now[:errors] = [
-        "The User with such an email does not exist"
+      flash.now[:messages] = [
+        {
+          "title": "Sign in failure",
+          "subtitles": ["The User with such an email does not exist"],
+          "type": "negative"
+        }
       ]
     end
     render(:new, status: :unprocessable_entity)

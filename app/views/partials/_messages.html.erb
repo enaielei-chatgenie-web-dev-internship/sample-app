@@ -1,0 +1,25 @@
+<% if messages && !messages.empty?() %>
+    <% for message in messages
+        type = message["type"] || message[:type]
+        title = message["title"] || message[:title]
+        subtitles = message["subtitles"] || message[:subtitles]
+    %>
+        <div class="ui <%= type %> message" style="display: block;">
+            <i class="close icon"></i>
+            <div class="header">
+                <%= title %>
+            </div>
+            <% if subtitles && !subtitles.empty?() %>
+                <% if subtitles.size() >= 2 %>
+                    <ul>
+                        <% for subtitle in subtitles %>
+                            <li><%= subtitle %></li>
+                        <% end %>
+                    </ul>
+                <% else %>
+                    <p><%= subtitles[0] %></p>
+                <% end %>
+            <% end %>
+        </div>
+    <% end %>
+<% end %>

@@ -1,0 +1,38 @@
+<% provide(:title, "Users") %>
+<%
+    pagination = {
+        page: @users.current_page(),
+        pages: @users.total_pages(),
+        pages_display: 2
+    }
+    cuser = get_user()
+%>
+<h2 class="ui header">
+    All Users
+    <div class="sub header">All the Users currently registered.</div>
+</h2>
+<div class="ui divider"></div>
+<div class="ui center aligned basic fitted segment">
+    <%= render("partials/pagination", pagination) %>
+</div>
+<div class="ui list">
+    <% for user in @users %>
+        <div class="item">
+            <%= get_profile_image(user, class: "ui mini circular image") %>
+            <div class="content">
+                <div class="ui sub header"><%= user.name %></div>
+                <%= link_to("View", user) %>
+                <% if cuser.admin?() && !check_user(user) %>
+                    | <%= link_to(
+                        "Delete", delete_user_path(user), data: {
+                            turbo_method: :delete,
+                            turbo_confirm: 'Are you sure you want to delete this user?'
+                        }) %>
+                <% end %>
+            </div>
+        </div>
+    <% end %>
+</div>
+<div class="ui center aligned basic fitted segment">
+    <%= render("partials/pagination", pagination) %>
+</div>

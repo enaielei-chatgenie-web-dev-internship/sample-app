@@ -1,0 +1,76 @@
+<%
+    page ||= 0
+    pages ||= 0
+    page = page.clamp(page, pages)
+
+    options ||= {}
+    html_options ||= {}
+    first_label ||= "First"
+    previous_label ||= "<"
+    last_label ||= "Last"
+    next_label ||= ">"
+
+    pages_display ||= 2
+    lpd = (lower_pages_display ||= pages_display)
+    upd = (upper_pages_display ||= pages_display)
+
+    cls = html_options[:class].to_s()
+    cls += " item"
+    html_options[:class] = cls.strip()
+
+    lv = page - 1
+    uv = pages - page
+    lo = uo = 0
+
+    uo = lpd - lv if lpd > lv
+    lo = upd - uv if upd > uv
+
+    start = (page - lower_pages_display).clamp(1, pages) - lo
+    end_ = (page + upper_pages_display).clamp(1, pages) + uo
+%>
+<% if pages != 0 %>
+    <nav class="ui pagination mini menu">
+        <% if first_label %>
+            <%
+                cpage = 1
+                disabled = false
+                active = page == cpage
+            %>
+            <%= page_link(body: first_label, page: cpage, active: active, disabled: disabled, options: options, html_options: html_options) %>
+        <% end %>
+        <% if previous_label %>
+            <%
+                disabled = page == 1
+                cpage = !disabled ? page - 1 : page
+                active = page == cpage
+            %>
+            <%= page_link(body: previous_label, page: cpage, active: active, disabled: disabled, options: options, html_options: html_options) %>
+        <% end %>
+        <%
+          for p in start..end_
+        %>
+            <%
+                cpage = p
+                disabled = false
+                active = page == cpage
+            %>
+            <%= page_link(page: cpage, active: active, disabled: disabled, options: options, html_options: html_options) %>
+        <% end %>
+        <% if next_label %>
+            <%
+                disabled = page == pages
+                cpage = !disabled ? page + 1 : page
+                active = page == cpage
+            %>
+            <%= page_link(body: next_label, page: cpage, active: active, disabled: disabled, options: options, html_options: html_options) %>
+        <% end %>
+        <% if last_label %>
+            <%
+                cpage = pages
+                disabled = false
+                active = page == cpage
+            %>
+            <%= page_link(body: last_label, page: cpage, active: active, disabled: disabled, options: options, html_options: html_options) %>
+        <% end %>
+    </nav>
+<% end %>

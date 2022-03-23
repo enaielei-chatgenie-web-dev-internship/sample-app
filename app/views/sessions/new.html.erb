@@ -43,5 +43,5 @@
             <%= form.submit("Submit", class: "ui positive button") %>
         </div>
     </div>
-    <%= render("partials/errors", errors: errors) %>
+    <%= render("partials/messages", messages: flash[:messages]) %>
 <% end %>

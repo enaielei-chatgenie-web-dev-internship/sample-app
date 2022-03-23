@@ -1,14 +1,19 @@
-<% provide(:title, "Sign Up") %>
+<% provide(:title, "Account Details") %>
 <h2 class="ui header">
-    Sign Up
-    <div class="sub header">New User? Setup an account in minutes!</div>
+    Account Details
+    <div class="sub header">Update your account information.</div>
 </h2>
 <div class="ui divider"></div>
 <%= form_with(model: @user,
     id: "account-details-form",
     class: "ui form",
-    url: auth_sign_up_path()
+    method: :patch,
+    url: edit_user_path(@user)
 ) do |form| %>
+    <div class="field">
+        <%= get_profile_image(@user, alt: "Image", class: "ui tiny avatar image") %>
+        <span><%= link_to("Change", "https://gravatar.com/emails", target: "_blank", class: "") %></span>
+    </div>
     <div class="field">
         <%= form.label(:email) %>
         <div class="ui left icon input">
@@ -37,13 +42,7 @@
         </div>
     </div>
     <div class="ui right aligned fitted basic segment">
-        <div class="ui buttons">
-            <%# <button class="ui button" name="commit" value="sign-in" type="submit">Sign In</button> %>
-            <%# <%= form.submit("Sign In", class: "ui button") %>
-            <%= link_to("Sign In", auth_sign_in_path(), class: "ui button") %>
-            <div class="or"></div>
-            <%= form.submit("Submit", class: "ui positive button") %>
-        </div>
+        <%= form.submit("Save Changes", class: "ui positive button") %>
     </div>
     <%= render("partials/messages", messages: flash[:messages]) %>
     <div class="ui error message form-error-message"></div>

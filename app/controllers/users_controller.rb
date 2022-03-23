@@ -1,4 +1,18 @@
 class UsersController < ApplicationController
+  before_action(
+    :authenticated, only: [:index, :edit, :update, :destroy]
+  )
+  before_action(
+    :verify_user, only: [:edit, :update]
+  )
+  before_action(
+    :verify_user_privileges, only: [:destroy]
+  )
+
+  def index()
+    @users = User.page(params[:page]).per(params[:count] || 15)
+  end
+
   def show()
     @user = User.find(params[:id])
   end
@@ -15,14 +29,105 @@ class UsersController < ApplicationController
 
     if @user.save()
       sign_in(@user)
-      flash[:signed_up] = {
-        "title": "Welcome aboard!",
-        "subtitle": "Your account has been successfully created!",
-        "type": "positive"
-      }
+      flash[:messages] = [
+        {
+          "title": "Welcome aboard!",
+          "subtitles": ["Your account has been successfully created!"],
+          "type": "positive"
+        }
+      ]
       redirect_to(@user)
     else
-      return render(:new, status: :unprocessable_entity)
+      flash.now[:messages] = [
+        {
+          "title": "Sign up failure",
+          "subtitles": ["An account with such an email already exists!"],
+          "type": "negative"
+        }
+      ]
+      render(:new, status: :unprocessable_entity)
+    end
+  end
+
+  def edit()
+    @user = User.find(params[:id])
+  end
+
+  def update()
+    @user = User.find(params[:id])
+
+    if @user.update(filter_params())
+      flash[:messages] = [
+        {
+          "title": "Changes saved!",
+          "subtitles": ["Your account information has been successfully updated!"],
+          "type": "positive"
+        }
+      ]
+      redirect_to(edit_user_url(@user))
+    else
+      flash[:messages] = [
+        {
+          "title": "Request rejected!",
+          "subtitles": ["There was something wrong with your request, no changes were saved"],
+          "type": "negative"
+        }
+      ]
+      render(:edit, status: :unprocessable_entity)
+    end
+  end
+
+  def destroy()
+    user = User.find(params[:id])
+    user.destroy()
+    flash.now[:messages] = [
+      {
+        "title": "User deleted!",
+        "subtitles": ["You have successfully removed '#{user.name}' from the database"],
+        "type": "positive"
+      }
+    ]
+    redirect_to(users_url())
+  end
+
+  def authenticated()
+    if !signed_in()
+      store_location()
+      flash[:messages] = [
+        {
+          "title": "Unauthorized Access!",
+          "subtitles": ["Please sign in first into your account"],
+          "type": "negative"
+        }
+      ]
+      redirect_to(auth_sign_in_url(), status: :see_other)
+    end
+  end
+
+  def verify_user_privileges()
+    if !get_user().admin?()
+      flash[:messages] = [
+        {
+          "title": "Unauthorized Access!",
+          "subtitles": ["Please sign in first into your account"],
+          "type": "negative"
+        }
+      ]
+      redirect_to(root_url(), status: :see_other)
+    end
+  end
+
+  def verify_user()
+    @user = User.find(params[:id])
+    if !check_user(@user)
+      flash[:messages] = [
+        {
+          "title": "Unauthorized Access!",
+          "subtitles": ["Please sign in first into your account"],
+          "type": "negative"
+        }
+      ]
+      redirect_to(auth_sign_in_url(), status: :see_other)
     end
   end
 

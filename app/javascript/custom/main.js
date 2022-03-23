@@ -1,5 +1,5 @@
 $(() => {
-    $("#sign-up-form").form({
+    $("#account-details-form").form({
         on: "blur",
         selector: {
             message: ".form-error-message"

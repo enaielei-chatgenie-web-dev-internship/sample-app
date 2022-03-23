@@ -17,8 +17,15 @@
             data: nil
         },
         {
-            url: user ? "#" : nil,
-            active: "show" == name,
+            url: users_path(),
+            active: "index" == name,
+            text: "Users",
+            icon: "green users",
+            data: nil
+        },
+        {
+            url: user ? edit_user_path(user) : nil,
+            active: "edit" == name,
             text: "Settings",
             icon: "green cog circle",
             data: nil
