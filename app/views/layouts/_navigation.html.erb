@@ -17,7 +17,7 @@
             data: nil
         },
         {
-            url: users_path(),
+            url: user ? users_path() : nil,
             active: "index" == name,
             text: "Users",
             icon: "green users",

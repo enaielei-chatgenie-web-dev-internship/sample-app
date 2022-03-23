@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   before_action(
-    :authenticated, only: [:index, :edit, :update, :destroy]
+    :authenticated, only: [:show, :index, :edit, :update, :destroy]
   )
   before_action(
-    :verify_user, only: [:edit, :update]
+    :verify_user, only: [:show, :edit, :update]
   )
   before_action(
     :verify_user_privileges, only: [:destroy]
@@ -80,7 +80,7 @@ class UsersController < ApplicationController
   def destroy()
     user = User.find(params[:id])
     user.destroy()
-    flash.now[:messages] = [
+    flash[:messages] = [
       {
         "title": "User deleted!",
         "subtitles": ["You have successfully removed '#{user.name}' from the database"],

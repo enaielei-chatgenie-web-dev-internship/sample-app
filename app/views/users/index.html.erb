@@ -12,6 +12,7 @@
     <div class="sub header">All the Users currently registered.</div>
 </h2>
 <div class="ui divider"></div>
+<%= render("partials/messages", messages: flash[:messages]) %>
 <div class="ui center aligned basic fitted segment">
     <%= render("partials/pagination", pagination) %>
 </div>
