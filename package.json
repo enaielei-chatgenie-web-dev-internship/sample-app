@@ -9,7 +9,7 @@
     "ch-main": "git checkout main",
     "ch-prev": "git checkout @{-1}",
     "ad": "git add --all",
-    "co": "git commit -m \"'Commit changes\"",
+    "co": "git commit -qm \"'Commit changes\"",
     "pu": "git push",
     "pu-hero": "git push heroku",
     "me": "git merge @{-1}",
