@@ -31,4 +31,4 @@
 /config/master.key
 
 # Environment Variables
-env.rb
+.env*

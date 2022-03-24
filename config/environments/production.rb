@@ -107,6 +107,8 @@ Rails.application.configure do
     :password       => ENV['MAILGUN_SMTP_PASSWORD'],
     :domain         => host,
     :authentication => :plain,
+    :open_timeout   => 10,
+    :read_timeout   => 10
   }
   ActionMailer::Base.delivery_method = :smtp
 end
