@@ -91,7 +91,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # Configure for SendGrid
+  # Configure Mailing
   host = "enaielei-chatgenie-sample-app.herokuapp.com"
 
   config.action_mailer.raise_delivery_errors = false
@@ -105,7 +105,7 @@ Rails.application.configure do
     :address        => ENV['MAILGUN_SMTP_SERVER'],
     :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
     :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-    :domain         => ENV['MAILGUN_DOMAIN'],
+    :domain         => host,
     :authentication => :plain,
   }
   ActionMailer::Base.delivery_method = :smtp
