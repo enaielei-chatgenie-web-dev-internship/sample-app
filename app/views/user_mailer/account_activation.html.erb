@@ -1,0 +1,11 @@
+<h1 style="text-align: center;"></h1>
+<p>Hi <%= @user.name %>,</p>
+
+<p>Welcome to the Sample App!</p>
+<p>To countinue using the app, you need to verify your account first by clicking the link below.</p>
+
+<%
+  url = edit_account_activation_url(
+  @user.activation_token, email: @user.email)
+%>
+<%= link_to(nil, url) %>

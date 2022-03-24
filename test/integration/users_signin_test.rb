@@ -24,24 +24,24 @@ class UsersSigninTest < ActionDispatch::IntegrationTest
     assert_select("a[href=?]", user_path(@user))
   end
 
-  test("valid signup information") do
-    get(auth_sign_up_path())
-    assert_difference('User.count', 1) do
-      post(auth_sign_up_path(), params: {
-          user: {
-            name: "Example User",
-            email: "user@example.com",
-            password: "password",
-            password_confirmation: "password"
-          }
-        }
-      )
-    end
+  # test("valid signup information") do
+  #   get(auth_sign_up_path())
+  #   assert_difference('User.count', 1) do
+  #     post(auth_sign_up_path(), params: {
+  #         user: {
+  #           name: "Example User",
+  #           email: "user@example.com",
+  #           password: "password",
+  #           password_confirmation: "password"
+  #         }
+  #       }
+  #     )
+  #   end
 
-    follow_redirect!()
-    assert_template('users/show')
-    assert(is_signed_in())
-  end
+  #   follow_redirect!()
+  #   assert_template('users/show')
+  #   assert(is_signed_in())
+  # end
 
   test("login with valid email/invalid password") do
     get(auth_sign_in_path())

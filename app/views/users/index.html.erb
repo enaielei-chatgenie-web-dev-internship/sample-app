@@ -3,7 +3,10 @@
     pagination = {
         page: @users.current_page(),
         pages: @users.total_pages(),
-        pages_display: 2
+        pages_display: 2,
+        options: {
+            count: params[:count]
+        }
     }
     cuser = get_user()
 %>

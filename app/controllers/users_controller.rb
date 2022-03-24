@@ -28,15 +28,15 @@ class UsersController < ApplicationController
     @user = User.new(filter_params())
 
     if @user.save()
-      sign_in(@user)
+      @user.send_activation_email()
       flash[:messages] = [
         {
-          "title": "Welcome aboard!",
-          "subtitles": ["Your account has been successfully created!"],
-          "type": "positive"
+          "title": "Account has been registered!",
+          "subtitles": ["Please check your email for verification"],
+          "type": "info"
         }
       ]
-      redirect_to(@user)
+      redirect_to(root_url())
     else
       flash.now[:messages] = [
         {

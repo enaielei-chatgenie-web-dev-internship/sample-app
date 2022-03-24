@@ -1,6 +1,7 @@
 <%
     page ||= 0
     pages ||= 0
+    page_param ||= :page
     page = page.clamp(page, pages)
 
     options ||= {}
@@ -14,9 +15,13 @@
     lpd = (lower_pages_display ||= pages_display)
     upd = (upper_pages_display ||= pages_display)
 
+    classes = [
+        "item"
+    ]
     cls = html_options[:class].to_s()
-    cls += " item"
-    html_options[:class] = cls.strip()
+
+    cls = classes.append(cls).compact().join(" ").strip()
+    html_options[:class] = cls
 
     lv = page - 1
     uv = pages - page
@@ -36,7 +41,18 @@
                 disabled = false
                 active = page == cpage
             %>
-            <%= page_link(body: first_label, page: cpage, active: active, disabled: disabled, options: options, html_options: html_options) %>
+            <%= page_link(
+                body: first_label,
+                options: options.merge(
+                    page_param => cpage
+                ),
+                html_options: html_options.merge(
+                    class: [
+                        active ? "active" : "",
+                        disabled ? "disabled" : ""
+                    ].append(html_options[:class]).compact().join(" ")
+                )
+            ) %>
         <% end %>
         <% if previous_label %>
             <%
@@ -44,7 +60,18 @@
                 cpage = !disabled ? page - 1 : page
                 active = page == cpage
             %>
-            <%= page_link(body: previous_label, page: cpage, active: active, disabled: disabled, options: options, html_options: html_options) %>
+            <%= page_link(
+                body: previous_label,
+                options: options.merge(
+                    page_param => cpage
+                ),
+                html_options: html_options.merge(
+                    class: [
+                        active ? "active" : "",
+                        disabled ? "disabled" : ""
+                    ].append(html_options[:class]).compact().join(" ")
+                )
+            ) %>
         <% end %>
         <%
           for p in start..end_
@@ -54,7 +81,18 @@
                 disabled = false
                 active = page == cpage
             %>
-            <%= page_link(page: cpage, active: active, disabled: disabled, options: options, html_options: html_options) %>
+            <%= page_link(
+                body: p.to_s(),
+                options: options.merge(
+                    page_param => cpage
+                ),
+                html_options: html_options.merge(
+                    class: [
+                        active ? "active" : "",
+                        disabled ? "disabled" : ""
+                    ].append(html_options[:class]).compact().join(" ")
+                )
+            ) %>
         <% end %>
         <% if next_label %>
             <%
@@ -62,7 +100,18 @@
                 cpage = !disabled ? page + 1 : page
                 active = page == cpage
             %>
-            <%= page_link(body: next_label, page: cpage, active: active, disabled: disabled, options: options, html_options: html_options) %>
+            <%= page_link(
+                body: next_label,
+                options: options.merge(
+                    page_param => cpage
+                ),
+                html_options: html_options.merge(
+                    class: [
+                        active ? "active" : "",
+                        disabled ? "disabled" : ""
+                    ].append(html_options[:class]).compact().join(" ")
+                )
+            ) %>
         <% end %>
         <% if last_label %>
             <%
@@ -70,7 +119,18 @@
                 disabled = false
                 active = page == cpage
             %>
-            <%= page_link(body: last_label, page: cpage, active: active, disabled: disabled, options: options, html_options: html_options) %>
+            <%= page_link(
+                body: last_label,
+                options: options.merge(
+                    page_param => cpage
+                ),
+                html_options: html_options.merge(
+                    class: [
+                        active ? "active" : "",
+                        disabled ? "disabled" : ""
+                    ].append(html_options[:class]).compact().join(" ")
+                )
+            ) %>
         <% end %>
     </nav>
 <% end %>

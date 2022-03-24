@@ -12,10 +12,22 @@ class SessionsController < ApplicationController
 
     if @user
       if @user.authenticate(session[:password])
-        sign_in(@user)
-        session[:remembered] == "1" ? remember(@user) : forget(@user)
-        redirect_back_or(@user)
-        return
+        if @user.activated?()
+          sign_in(@user)
+          session[:remembered] == "1" ? remember(@user) : forget(@user)
+          redirect_back_or(@user)
+          return
+        else
+          flash[:messages] = [
+            {
+              "title": "Sign in failure",
+              "subtitles": ["Please check you email and activate your account first"],
+              "type": "negative"
+            }
+          ]
+          redirect_to(root_url())
+          return
+        end
       else
         flash.now[:messages] = [
           {

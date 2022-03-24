@@ -1,0 +1,6 @@
+Hi <%= @user.name %>,
+
+Welcome to the Sample App!
+To countinue using the app, you need to verify your account first by clicking the link below.
+
+<%= edit_account_activation_url(@user.activation_token, email: @user.email) %>

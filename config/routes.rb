@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   get("/users", to: "users#index", as: "users")
   delete("/:id/delete", to: "users#destroy", as: "delete_user")
 
+  resources(:account_activations, only: [:edit])
+
   # delete("/")
 
   # resources(:users)
