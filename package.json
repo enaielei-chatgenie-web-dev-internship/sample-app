@@ -13,10 +13,11 @@
     "pu": "git push",
     "pu-hero": "git push heroku",
     "me": "git merge @{-1}",
-    "he-reset": "heroku pg:reset DATABASE --confirm enaielei-chatgenie-sample-app",
+    "he-drop": "heroku pg:reset DATABASE --confirm enaielei-chatgenie-sample-app",
     "he-open": "heroku open",
     "he-migrate": "heroku run rails db:migrate",
     "he-seed": "heroku run rails db:seed",
-    "dp": "yarn run ad && yarn run co && yarn run pu && yarn run ch-main && yarn run me && yarn run pu && yarn run pu-hero && yarn run he-reset && yarn run he-migrate && yarn run he-seed && yarn run he-open"
+    "he-reset": "yarn run he-drop && yarn run he-migrate && yarn run he-seed",
+    "dp": "yarn run ad && yarn run co && yarn run pu && yarn run ch-main && yarn run me && yarn run pu && yarn run pu-hero && yarn run he-reset && yarn run he-open"
   }
 }
