@@ -9,13 +9,14 @@
     "ch-main": "git checkout main",
     "ch-prev": "git checkout @{-1}",
     "ad": "git add --all",
-    "cm": "git commit -m \"'Commit changes\"",
+    "co": "git commit -m \"'Commit changes\"",
     "pu": "git push",
     "pu-hero": "git push heroku",
-    "mg": "git merge @{-1}",
-    "he-reset": "heroku pg:reset DATABASE",
+    "me": "git merge @{-1}",
+    "he-reset": "heroku pg:reset DATABASE --confirm enaielei-chatgenie-sample-app",
     "he-open": "heroku open",
     "he-migrate": "heroku run rails db:migrate",
-    "dp": "yarn run ad && yarn run cm && yarn run pu && yarn run ch-main && yarn run mg && yarn run pu && yarn run pu-hero && yarn run he-reset && yarn run he-migrate && yarn run he-open"
+    "he-seed": "heroku run rails db:seed",
+    "dp": "yarn run ad && yarn run co && yarn run pu && yarn run ch-main && yarn run me && yarn run pu && yarn run pu-hero && yarn run he-reset && yarn run he-migrate && yarn run he-seed && yarn run he-open"
   }
 }
