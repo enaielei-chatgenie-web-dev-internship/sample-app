@@ -59,6 +59,6 @@ Rails.application.configure do
   # config.action_view.annotate_rendered_view_with_filenames = true
 
   config.action_mailer.default_url_options = {
-    host: "127.0.0.1:3000"
+    host: "localhost:3000"
   }
 end

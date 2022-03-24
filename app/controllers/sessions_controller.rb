@@ -1,9 +1,6 @@
 class SessionsController < ApplicationController
   def new()
-    @user = get_user()
-    if @user
-      redirect_to(@user, status: :see_other)
-    end
+    @user = User.new()
   end
 
   def create()

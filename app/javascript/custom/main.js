@@ -5,7 +5,7 @@ $(() => {
             message: ".form-error-message"
         },
         fields: {
-            "user[email]": ["email", "empty", "maxLength[300]"],
+            "user[email]": ["email", "maxLength[300]"],
             "user[name]": ["empty", "maxLength[150]"],
             "user[password]": ["empty", "minLength[6]"],
             "user[password_confirmation]": {
@@ -25,7 +25,7 @@ $(() => {
             message: ".form-error-message"
         },
         fields: {
-            "user[email]": ["email", "empty"],
+            "user[email]": ["email"],
             "user[password]": ["empty"]
         }
     });

@@ -105,7 +105,7 @@ Rails.application.configure do
     :address        => ENV['TRUSTIFI_URL'],
     :user_name      => ENV['TRUSTIFI_SECRET'],
     :password       => ENV['TRUSTIFI_KEY'],
-    :domain         => 'enaielei-chatgenie-sample-app.heroku.com',
+    :domain         => 'enaielei-chatgenie-sample-app.herokuapp.com',
     :authentication => :plain,
   }
 end

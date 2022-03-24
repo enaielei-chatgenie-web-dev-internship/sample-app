@@ -18,10 +18,7 @@ class UsersController < ApplicationController
   end
 
   def new()
-    @user = get_user() || User.new()
-    if signed_in()
-      redirect_to(@user, status: :see_other)
-    end
+    @user = User.new()
   end
 
   def create()
