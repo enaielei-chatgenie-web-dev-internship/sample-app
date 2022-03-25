@@ -10,7 +10,7 @@
     "ch-prev": "git checkout @{-1}",
     "ad": "git add --all",
     "co": "git commit -aqm \"'Commit changes\"",
-    "pu": "git push -u origin",
+    "pu": "git push -u origin --all",
     "pu-hero": "git push heroku",
     "me": "git merge @{-1}",
     "he-drop": "heroku pg:reset DATABASE --confirm enaielei-chatgenie-sample-app",
