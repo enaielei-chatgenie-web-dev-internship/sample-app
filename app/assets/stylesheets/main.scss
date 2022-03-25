@@ -36,3 +36,12 @@ $font-name: "DM Sans" !default;
     font-family: "DM Mono", 'Courier New', Courier, monospace;
     font-size: 0.75em;
 }
+
+label > a {
+    font-size: 0.75rem;
+    font-weight: normal;
+}
+
+.ui.checkbox > label {
+    cursor: pointer;
+}

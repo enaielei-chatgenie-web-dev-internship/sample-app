@@ -1,6 +1,6 @@
 <% provide(:title, "Sign In") %>
 <%
-    errors = flash[:errors]
+    messages = flash[:messages]
     user = params[:session] || {}
 %>
 <h2 class="ui header">
@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="field">
-        <%= form.label(:password) %>
+        <%= form.label(:password, raw("Password | " + link_to(raw(semantic_icon("redo") + "Reset Password"), new_password_reset_path()))) %>
         <div class="ui left icon input">
             <%= form.password_field(:password, placeholder: "@yourPassword1234", value: nil) %>
             <i class="key icon"></i>
@@ -43,5 +43,6 @@
             <%= form.submit("Submit", class: "ui positive button") %>
         </div>
     </div>
-    <%= render("partials/messages", messages: flash[:messages]) %>
+    <%= render("partials/messages", messages: messages) %>
+    <div class="ui error message form-error-message"></div>
 <% end %>

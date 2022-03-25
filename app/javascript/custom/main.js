@@ -25,8 +25,34 @@ $(() => {
             message: ".form-error-message"
         },
         fields: {
-            "user[email]": ["email"],
-            "user[password]": ["empty"]
+            "session[email]": ["email"],
+            "session[password]": {
+                rules: [
+                    {
+                        type: "empty",
+                        prompt: "Password must have a value"
+                    }
+                ]
+            }
+        }
+    });
+
+    $("#password-reset-form").form({
+        on: "blur",
+        selector: {
+            message: ".form-error-message"
+        },
+        fields: {
+            "password_reset[email]": ["email"],
+            "user[password]": ["empty", "minLength[6]"],
+            "user[password_confirmation]": {
+                rules: [
+                    {
+                        type: "match[user[password]]",
+                        prompt: "Password confirmation must match password"
+                    }
+                ]
+            }
         }
     });
 

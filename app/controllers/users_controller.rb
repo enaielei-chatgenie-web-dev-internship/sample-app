@@ -35,13 +35,13 @@ class UsersController < ApplicationController
       ]
       redirect_to(root_url())
     else
-      flash.now[:messages] = [
-        {
-          "title": "Sign up failure",
-          "subtitles": ["An account with such an email already exists!"],
-          "type": "negative"
-        }
-      ]
+      # flash.now[:messages] = [
+      #   {
+      #     "title": "Sign up failure",
+      #     "subtitles": ["An account with such an email already exists!"],
+      #     "type": "negative"
+      #   }
+      # ]
       render(:new, status: :unprocessable_entity)
     end
   end

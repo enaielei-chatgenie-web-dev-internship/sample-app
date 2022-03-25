@@ -1,0 +1,27 @@
+<% provide(:title, "Password Reset") %>
+<%
+    messages = flash[:messages]
+%>
+<h2 class="ui header">
+    Password Reset
+    <div class="sub header">Reset your forgotten password.</div>
+</h2>
+<div class="ui divider"></div>
+<%= form_with(scope: :password_reset,
+    id: "password-reset-form",
+    class: "ui form",
+    url: password_resets_path()
+) do |form| %>
+    <div class="field">
+        <%= form.label(:email) %>
+        <div class="ui left icon input">
+            <%= form.email_field(:email, placeholder: "juan.dela.cruz@email.com", value: nil) %>
+            <i class="at icon"></i>
+        </div>
+    </div>
+    <div class="ui right aligned fitted basic segment">
+        <%= form.submit("Submit", class: "ui positive button") %>
+    </div>
+    <%= render("partials/messages", messages: messages) %>
+    <div class="ui error message form-error-message"></div>
+<% end %>

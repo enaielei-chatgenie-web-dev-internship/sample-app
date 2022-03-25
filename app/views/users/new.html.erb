@@ -1,4 +1,13 @@
 <% provide(:title, "Sign Up") %>
+<%
+    messages = []
+    messages.append({
+          "title": "The server rejected your request!",
+          "subtitles": @user.errors.full_messages(),
+          "type": "negative"
+    }) if @user.errors.any?()
+    messages.append(*flash[:messages]) if flash[:messages]
+%>
 <h2 class="ui header">
     Sign Up
     <div class="sub header">New User? Setup an account in minutes!</div>
@@ -45,6 +54,6 @@
             <%= form.submit("Submit", class: "ui positive button") %>
         </div>
     </div>
-    <%= render("partials/messages", messages: flash[:messages]) %>
+    <%= render("partials/messages", messages: messages) %>
     <div class="ui error message form-error-message"></div>
 <% end %>

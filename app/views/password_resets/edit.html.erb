@@ -1,0 +1,42 @@
+<% provide(:title, "Password Reset") %>
+<%
+    messages = flash[:messages]
+%>
+<h2 class="ui header">
+    Password Reset
+    <div class="sub header">Reset your forgotten password.</div>
+</h2>
+<div class="ui divider"></div>
+<%= form_with(model: @user,
+    id: "password-reset-form",
+    class: "ui form",
+    url: password_reset_path(params[:id])
+) do |form| %>
+    <%= hidden_field_tag(:email, @user.email) %>
+    <div class="disabled field">
+        <label for="email-display">Email</label>
+        <div class="ui left icon input">
+            <input id="email-display" type="email" placeholder="<%= @user.email %>" readonly>
+            <i class="at icon"></i>
+        </div>
+    </div>
+    <div class="field">
+        <%= form.label(:password, "New Password") %>
+        <div class="ui left icon input">
+            <%= form.password_field(:password, placeholder: "@yourPassword1234", value: nil) %>
+            <i class="key icon"></i>
+        </div>
+    </div>
+    <div class="field">
+        <%= form.label(:password_confirmation, "New Password Confirmation") %>
+        <div class="ui left icon input">
+            <%= form.password_field(:password_confirmation, placeholder: "@yourPassword1234", value: nil) %>
+            <i class="key icon"></i>
+        </div>
+    </div>
+    <div class="ui right aligned fitted basic segment">
+        <%= form.submit("Submit", class: "ui positive button") %>
+    </div>
+    <%= render("partials/messages", messages: messages) %>
+    <div class="ui error message form-error-message"></div>
+<% end %>
