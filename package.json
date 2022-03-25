@@ -11,7 +11,7 @@
     "ad": "git add --all",
     "co": "git commit -aqm \"'Commit changes\"",
     "br-current": "git branch --show-current",
-    "pu": "git push -u origin $(yarn run br-current)",
+    "pu": "git push -u origin $(git branch --show-current)",
     "pu-hero": "git push heroku",
     "me": "git merge @{-1}",
     "he-drop": "heroku pg:reset DATABASE --confirm enaielei-chatgenie-sample-app",
