@@ -13,11 +13,19 @@
     "pu": "git push -u origin --all",
     "pu-hero": "git push heroku",
     "me": "git merge @{-1}",
-    "he-drop": "heroku pg:reset DATABASE --confirm enaielei-chatgenie-sample-app",
+
     "he-open": "heroku open",
+    "he-drop": "heroku pg:reset DATABASE --confirm enaielei-chatgenie-sample-app",
     "he-migrate": "heroku run rails db:migrate",
     "he-seed": "heroku run rails db:seed",
-    "he-reset": "yarn run he-drop && yarn run he-migrate && yarn run he-seed",
-    "dp": "yarn run ad && yarn run co && yarn run pu && yarn run ch-main && yarn run me && yarn run pu && yarn run pu-hero && yarn run he-reset && yarn run he-open"
+    "he-reset": "yarn he-drop && yarn he-migrate && yarn he-seed",
+
+    "ra-drop": "rails db:drop:all",
+    "ra-create": "rails db:create:all",
+    "ra-migrate": "rails db:migrate && rails db:migrate RAILS_ENV=test",
+    "ra-seed": "rails db:seed",
+    "ra-reset": "rails db:reset && rails db:reset RAILS_ENV=test && yarn ra-migrate && yarn ra-seed",
+
+    "dp": "yarn ad && yarn co && yarn pu && yarn ch-main && yarn me && yarn pu && yarn pu-hero && yarn he-reset && yarn he-open"
   }
 }

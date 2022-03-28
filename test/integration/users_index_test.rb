@@ -12,7 +12,9 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
         page: 1, count: 10
       })
       assert_template("users/index")
-      assert_select(".pagination")
+
+      page1 = User.page(1).per(10)
+      assert_select(".pagination") if page1.total_pages() > 1
       User.page(1).per(10).each() do |user|
         assert_select("a[href=?]", user_path(user))
       end
@@ -22,8 +24,10 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     sign_in_as(@user)
     get(users_path())
     assert_template("users/index")
-    assert_select(".pagination")
     page1 = User.page(1).per(10)
+    if page1.total_pages() > 1
+      assert_select(".pagination")
+    end
     page1.each() do |user|
       assert_select("a[href=?]", user_path(user))
       if user != @user

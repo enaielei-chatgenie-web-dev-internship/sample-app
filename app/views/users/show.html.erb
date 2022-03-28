@@ -1,9 +1,57 @@
 <% provide(:title, @user.name) %>
 <%= render("partials/messages", messages: flash[:messages]) %>
+
+<%
+    active = params[:active]
+    pagination = {
+        page: @microposts.current_page(),
+        pages: @microposts.total_pages(),
+        pages_display: 2,
+        options: {
+            count: params[:count],
+            active: "posts"
+        }
+    }
+    cuser = get_user()
+
+    accordion = [
+        "posts"
+    ]
+    index = accordion.index(active)
+%>
+
 <h2 class="ui center aligned icon header">
-    <%= get_profile_image(@user, class: "ui circular image") %>
+    <%= get_profile_image(@user, class: "ui circular image profile-image") %>
     <div class="content">
         <%= @user.name %>
         <div class="sub header"><%= @user.email %></div>
     </div>
 </h2>
+<div class="ui accordion">
+    <div class="title">
+        <i class="dropdown icon"></i>
+        <h3 class="ui header">
+            <div class="content">
+                <%= semantic_icon("green newspaper") %>
+                Posts
+                <div class="sub header">Your daily dose of newest topics and threads.</div>
+            </div>
+        </h3>
+    </div>
+    <div class="ui bottom attached segment green content">
+        <% if @microposts.any?() %>
+            <ol class="ui divided relaxed ordered list">
+                <%= render(@microposts) %>
+            </ol>
+        <% else %>
+            <p>There's nothing to see here.</p>
+        <% end %>
+        <div class="ui center aligned basic fitted segment">
+            <%= render("partials/pagination", pagination) %>
+        </div>
+    </div>
+</div>
+
+<% if index != nil %>
+    <%= javascript_tag("$(\".ui.accordion\").accordion(\"open\", #{index})")%>
+<% end %>

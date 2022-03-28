@@ -2,7 +2,7 @@
     page ||= 1
     pages ||= 2
     
-    if pages > page
+    if pages >= page && pages > 1
 %>
     <%
         page_param ||= :page
@@ -34,8 +34,8 @@
         uo = lpd - lv if lpd > lv
         lo = upd - uv if upd > uv
 
-        start = (page - lower_pages_display).clamp(1, pages) - lo
-        end_ = (page + upper_pages_display).clamp(1, pages) + uo
+        start = ((page - lower_pages_display) - lo).clamp(1, pages)
+        end_ = ((page + upper_pages_display) + uo).clamp(1, pages)
     %>
     <% if pages != 0 %>
         <nav class="ui pagination mini menu">

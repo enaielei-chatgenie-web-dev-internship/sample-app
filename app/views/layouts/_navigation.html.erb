@@ -4,42 +4,49 @@
     navs = [
         {
             url: !user ? auth_sign_in_path() : nil,
-            active: "new" == name,
+            active: is_page("sessions", "new") || is_page("users", "new"),
             text: "Auth",
             icon: "green lock",
             data: nil
         },
         {
             url: user,
-            active: "show" == name,
+            active: is_page("users", "show"),
             text: "Profile",
             icon: "green user circle",
             data: nil
         },
         {
+            url: user ? new_micropost_path() : nil,
+            active: is_page("microposts", "new", "create"),
+            text: "Post",
+            icon: "green newspaper circle",
+            data: nil
+        },
+        {
             url: user ? users_path() : nil,
-            active: "index" == name,
+            active: is_page("users", "index"),
             text: "Users",
             icon: "green users",
             data: nil
         },
         {
             url: user ? edit_user_path(user) : nil,
-            active: "edit" == name,
+            active: is_page("users", "edit", "update"),
             text: "Settings",
             icon: "green cog circle",
             data: nil
         },
         {
             url: about_path(),
-            active: "about" == name,
+            active: is_page("static_pages", "about"),
             text: "About",
             icon: "green info circle",
             data: nil
         },
         {
             url: user ? auth_sign_out_path() : nil,
-            active: "destroy" == name,
+            active: is_page("sessions", "destroy"),
             text: "Sign Out",
             icon: "green door open",
             data: {turbo_method: :delete, turbo_confirm: 'Are you sure you want to sign out?'}

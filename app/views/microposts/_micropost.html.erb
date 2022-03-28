@@ -1,0 +1,7 @@
+<li id="micropost-<%= micropost.id %>" class="item">
+    <%= get_profile_image(micropost.user, class: "ui avatar image", title: micropost.user.name) %>
+    <div class="content">
+        <a href="<%= "#" %>" class="header" title="<%= micropost.content.truncate(80, omission: "...") %>"><%= micropost.content.truncate(40, omission: "...") %></a>
+        Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+    </div>
+</li>

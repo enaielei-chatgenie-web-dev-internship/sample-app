@@ -19,24 +19,13 @@
 <div class="ui center aligned basic fitted segment">
     <%= render("partials/pagination", pagination) %>
 </div>
-<div class="ui list">
-    <% for user in @users %>
-        <div class="item">
-            <%= get_profile_image(user, class: "ui mini circular image") %>
-            <div class="content">
-                <div class="ui sub header"><%= user.name %></div>
-                <%= link_to("View", user) %>
-                <% if cuser.admin?() && !check_user(user) %>
-                    | <%= link_to(
-                        "Delete", delete_user_path(user), data: {
-                            turbo_method: :delete,
-                            turbo_confirm: 'Are you sure you want to delete this user?'
-                        }) %>
-                <% end %>
-            </div>
-        </div>
-    <% end %>
-</div>
+<% if @users.any?() %>
+    <div class="ui list">
+        <%= render(@users, cuser: cuser) %>
+    </div>
+<% else %>
+    <p>There's nothing to see here.</p>
+<% end %>
 <div class="ui center aligned basic fitted segment">
     <%= render("partials/pagination", pagination) %>
 </div>

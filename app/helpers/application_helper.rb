@@ -8,6 +8,12 @@ module ApplicationHelper
         end
     end
 
+    def is_page(controller_name, *action_names)
+        name = controller.controller_name
+        action = controller.action_name
+        return name == controller_name && action_names.include?(action)
+    end
+
     def page_link(properties={})
         props = properties
         options = props[:options] || {}

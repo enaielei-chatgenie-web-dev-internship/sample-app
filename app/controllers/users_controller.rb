@@ -15,6 +15,7 @@ class UsersController < ApplicationController
 
   def show()
     @user = User.find(params[:id])
+    @microposts = @user.microposts.page(params[:page]).per(params[:count] || 5)
   end
 
   def new()
@@ -85,20 +86,6 @@ class UsersController < ApplicationController
       }
     ]
     redirect_to(users_url())
-  end
-
-  def authenticated()
-    if !signed_in()
-      store_location()
-      flash[:messages] = [
-        {
-          "title": "Unauthorized Access!",
-          "subtitles": ["Please sign in first into your account"],
-          "type": "negative"
-        }
-      ]
-      redirect_to(auth_sign_in_url(), status: :see_other)
-    end
   end
 
   def verify_user_privileges()
