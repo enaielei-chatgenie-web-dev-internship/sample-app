@@ -5,14 +5,14 @@ class MicropostsController < ApplicationController
     def new()
         @user = get_user()
         @micropost = @user.microposts.new() if signed_in()
-        @microposts = @user.microposts.page(params[:page]).per(params[:count] || 15)
+        @microposts = @user.feed().page(params[:page]).per(params[:count] || 15)
     end
 
     def create()
         @user = get_user()
         @micropost = @user.microposts.new(filter_params()) if signed_in()
         @micropost.image.attach(params[:micropost][:image])
-        @microposts = @user.microposts.page(params[:page]).per(params[:count] || 15)
+        @microposts = @user.feed().page(params[:page]).per(params[:count] || 15)
         if @micropost.save()
             flash[:messages] = [
                 {

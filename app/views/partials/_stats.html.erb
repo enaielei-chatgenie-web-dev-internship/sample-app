@@ -1,0 +1,10 @@
+<div class="ui basic labels">
+    <a class="ui label" href="<%= followers_user_path(user) %>">
+        Followers
+        <div id="followers-count" class="detail"><%= user.followers.count() %></div>
+    </a>
+    <a class="ui label" href="<%= following_user_path(user) %>">
+        Following
+        <div id="following-count" class="detail"><%= user.following.count() %></div>
+    </a>
+</div>

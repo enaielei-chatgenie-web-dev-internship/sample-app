@@ -2,6 +2,16 @@ class User < ApplicationRecord
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
     has_many(:microposts, dependent: :destroy)
+    has_many(:active_relationships, class_name: "Relationship",
+        foreign_key: "follower_id",
+        dependent: :destroy
+    )
+    has_many(:passive_relationships, class_name: "Relationship",
+        foreign_key: "followed_id",
+        dependent: :destroy
+    )
+    has_many(:following, through: :active_relationships, source: :followed)
+    has_many(:followers, through: :passive_relationships, source: :follower)
 
     attr_accessor(:remember_token, :activation_token, :reset_token)
 
@@ -65,6 +75,29 @@ class User < ApplicationRecord
 
     def reset_expired()
         self.reset_sent_at < 2.hours.ago
+    end
+
+    def follow(user)
+        self.following.append(user)
+    end
+
+    def unfollow(user)
+        self.following.delete(user)
+    end
+
+    def is_following(user)
+        self.following.include?(user)
+    end
+
+    def feed()
+        following_ids = "
+            select followed_id from relationships
+            where follower_id = :user_id
+        "
+        return Micropost.where(
+            "user_id in (#{following_ids}) or user_id = :user_id",
+            user_id: self.id
+        )
     end
 
     private()

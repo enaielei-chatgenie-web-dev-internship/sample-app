@@ -1,13 +1,23 @@
 class UsersController < ApplicationController
   before_action(
-    :authenticated, only: [:show, :index, :edit, :update, :destroy]
+    :authenticated, only: [:followers, :following, :show, :index, :edit, :update, :destroy]
   )
   before_action(
-    :verify_user, only: [:show, :edit, :update]
+    :verify_user, only: [:edit, :update]
   )
   before_action(
     :verify_user_privileges, only: [:destroy]
   )
+
+  def following()
+    @user = User.find(params[:id])
+    @users = @user.following.page(params[:page]).per(params[:count] || 15)
+  end
+
+  def followers()
+    @user = User.find(params[:id])
+    @users = @user.followers.page(params[:page]).per(params[:count] || 15)
+  end
 
   def index()
     @users = User.page(params[:page]).per(params[:count] || 15)

@@ -27,6 +27,10 @@
         <div class="sub header"><%= @user.email %></div>
     </div>
 </h2>
+<div class="ui basic fitted center aligned segment">
+    <%= render("partials/stats", user: @user) %>
+</div>
+<%= render("users/follow_form", user: @user)%>
 <div class="ui accordion">
     <div class="title">
         <i class="dropdown icon"></i>

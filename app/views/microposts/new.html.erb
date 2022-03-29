@@ -62,26 +62,32 @@
                         <%= get_profile_image(micropost.user, class: "ui avatar image", title: micropost.user.name) %>
                     </div>
                     <div class="content">
-                        <div class="date">
-                            <%= time_ago_in_words(micropost.created_at) %> ago.
+                        <div class="date" title="<%= micropost.created_at.to_time.strftime('%B %e at %l:%M %p') %>">
+                            <small><%= time_ago_in_words(micropost.created_at) %> ago.</small>
                         </div>
                         <div class="summary">
                             <%= link_to(micropost.user.name, user_path(micropost.user)) %>
                         </div>
-                        <div class="extra text"><%= micropost.content %></div>
+                        <div class="extra text" style="overflow-wrap: anywhere"><%= micropost.content %></div>
                         <% if micropost.image.attached?() %>
                             <div class="extra images">
-                                <%= link_to(image_tag(micropost.image), micropost.image, target: "_blank") %>
+                                <%= link_to(image_tag(micropost.image), micropost.image, target: "_blank", title: "View image") %>
                             </div>
                         <% end %>
                     </div>
-                    <div class="right floated label">
-                        <%= link_to("Delete", micropost, data: {
-                            turbo_method: :delete,
-                            turbo_confirm: 'Are you sure you want to delete this post?'
-                        }) %>
-                    </div>
+                    
+                    <% if micropost.user == @user %>
+                        <div class="right floated label">
+                            <%= link_to("Delete", micropost, data: {
+                                turbo_method: :delete,
+                                turbo_confirm: 'Are you sure you want to delete this post?'
+                            }) %>
+                        </div>
+                    <% end %>
                 </div>
+                <% if @microposts.last != micropost %>
+                    <div class="ui fitted divider"></div>
+                <% end %>
             <% end %>
         </div>
     </div>

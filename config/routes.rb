@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   get("/about", to: "static_pages#about")
   get("/:id/profile", to: "users#show", as: "user")
+  get("/:id/following", to: "users#following", as: "following_user")
+  get("/:id/followers", to: "users#followers", as: "followers_user")
 
   get("/auth/sign-up", to: "users#new")
   post("/auth/sign-up", to: "users#create")
@@ -24,6 +26,8 @@ Rails.application.routes.draw do
   resources(:password_resets, only: [:new, :create, :edit, :update])
 
   resources(:microposts, only: [:new, :create, :destroy])
+
+  resources(:relationships, only: [:create, :destroy])
 
   # delete("/")
 

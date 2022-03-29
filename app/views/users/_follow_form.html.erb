@@ -1,0 +1,25 @@
+<% if !check_user(user) %>
+    <div id="follow-form">
+        <div class="ui basic fitted center aligned segment">
+            <% if !get_user().is_following(user) %>
+                <%= form_with(
+                    model: get_user().active_relationships.new(),
+                    remote: true,
+                    class: "ui form"
+                ) do |form| %>
+                    <%= hidden_field_tag(:followed_id, user.id) %>
+                    <%= form.submit("Follow", class: "ui blue compact basic button") %>
+                <% end %>
+            <% else %>
+                <%= form_with(
+                    model: get_user().active_relationships.find_by(followed_id: user.id),
+                    remote: true,
+                    method: :delete,
+                    class: "ui form"
+                ) do |form| %>
+                    <%= form.submit("Followed", class: "ui blue compact button") %>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+<% end %>

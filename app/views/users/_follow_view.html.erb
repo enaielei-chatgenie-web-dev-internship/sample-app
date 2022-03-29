@@ -1,4 +1,4 @@
-<% provide(:title, "Users") %>
+<% provide(:title, @user.name) %>
 <%
     pagination = {
         page: @users.current_page(),
@@ -11,14 +11,14 @@
     cuser = get_user()
 %>
 <h2 class="ui header">
-    All Users
-    <div class="sub header">All the Users currently registered.</div>
+    <%= header %>
+    <div class="sub header"><%= subheader %></div>
 </h2>
 <div class="ui divider"></div>
 <%= render("partials/messages", messages: flash[:messages]) %>
 <% if @users.any?() %>
     <div class="ui divided list">
-        <%= render(@users, cuser: cuser, view: true, delete: cuser.admin?() && !check_user(@user)) %>
+        <%= render(@users, cuser: cuser, view: true, delete: false) %>
     </div>
 <% else %>
     <p>There's nothing to see here.</p>
