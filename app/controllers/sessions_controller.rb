@@ -1,8 +1,6 @@
 class SessionsController < ApplicationController
   def new()
-    if signed_in()
-        redirect_to(user_url(get_user()), status: :see_other)
-    end
+    not_authenticated()
     @user = User.new()
   end
 
