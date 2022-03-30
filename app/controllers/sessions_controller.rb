@@ -1,5 +1,8 @@
 class SessionsController < ApplicationController
   def new()
+    if signed_in()
+        redirect_to(user_url(get_user()), status: :see_other)
+    end
     @user = User.new()
   end
 
