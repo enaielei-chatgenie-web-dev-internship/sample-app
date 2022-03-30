@@ -29,6 +29,7 @@ class UsersController < ApplicationController
   end
 
   def new()
+    not_authenticated()
     @user = User.new()
   end
 

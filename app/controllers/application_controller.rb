@@ -19,4 +19,10 @@ class ApplicationController < ActionController::Base
         redirect_to(auth_sign_in_url(), status: :see_other)
         end
     end
+
+    def not_authenticated()
+        if signed_in()
+            redirect_to(user_url(get_user()), status: :see_other)
+        end
+    end
 end
