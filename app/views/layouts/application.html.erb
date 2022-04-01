@@ -28,6 +28,7 @@
                     <%= render("layouts/footer") %>
             </div>
         </div>
+
         <%= debug(params) if Rails.env.development?() %>
 
         <%= javascript_tag(nil, src: javascript_path("custom/main.js")) %>

@@ -11,7 +11,7 @@ class MicropostsController < ApplicationController
     def create()
         @user = get_user()
         @micropost = @user.microposts.new(filter_params()) if signed_in()
-        @micropost.image.attach(params[:micropost][:image])
+        @micropost.images.attach(params[:micropost][:images])
         @microposts = @user.feed().page(params[:page]).per(params[:count] || 15)
         if @micropost.save()
             flash[:messages] = [
@@ -28,21 +28,34 @@ class MicropostsController < ApplicationController
     end
 
     def destroy()
-        @micropost.destroy()
-        flash[:messages] = [
-            {
-                "title": "Micropost deleted!",
-                "subtitles": ["Your micropost has been deleted"],
-                "type": "positive"
-            }
-        ]
+        attachment_id = params["attachment-id"]
+        if attachment_id
+            attachment = @micropost.images.find(attachment_id)
+            attachment.purge()
+            flash[:messages] = [
+                {
+                    "title": "Successfully deleted image attachement!",
+                    "subtitles": ["Your image for a micropost has been deleted"],
+                    "type": "positive"
+                }
+            ]
+        else
+            @micropost.destroy()
+            flash[:messages] = [
+                {
+                    "title": "Micropost deleted!",
+                    "subtitles": ["Your micropost has been deleted"],
+                    "type": "positive"
+                }
+            ]
+        end
         redirect_to(new_micropost_url())
     end
 
     private()
 
     def filter_params()
-        return params.require(:micropost).permit(:content, :image)
+        return params.require(:micropost).permit(:content, :images)
     end
 
     def correct_user()

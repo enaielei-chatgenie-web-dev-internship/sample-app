@@ -37,12 +37,18 @@
             </div>
         </div>
         <div class="field">
-            <%= form.label(:image) %>
-            <%= form.file_field(:image, accept: "image/jpeg,image/gif,image/png") %>
-            <%# <div class="ui left icon input">
-                <i class="newspaper icon"></i>
-            </div> %>
+            <%= form.label(:images) %>
+            <%= form.file_field(:images, multiple: true, accept: "image/jpeg,image/gif,image/png") %>
         </div>
+        
+        <div id="image-previews-parent" class="ui secondary segment" style="display: none">
+            <div id="image-previews">
+                <div id="image-preview" style="display: none">
+                    <img>
+                </div>
+            </div>
+        </div>
+
         <div class="ui right aligned fitted basic segment">
             <%= form.submit("Submit", class: "ui positive button") %>
         </div>
@@ -57,6 +63,7 @@
     <div id="posts-feed" class="ui green segment">
         <div class="ui feed">
             <% for micropost in @microposts %>
+                <% owned = micropost.user == @user %>
                 <div class="event">
                     <div class="label">
                         <%= get_profile_image(micropost.user, class: "ui avatar image", title: micropost.user.name) %>
@@ -69,14 +76,34 @@
                             <%= link_to(micropost.user.name, user_path(micropost.user)) %>
                         </div>
                         <div class="extra text" style="overflow-wrap: anywhere"><%= micropost.content %></div>
-                        <% if micropost.image.attached?() %>
+                        <% if micropost.images.attached?() %>
                             <div class="extra images">
-                                <%= link_to(image_tag(micropost.image), micropost.image, target: "_blank", title: "View image") %>
+                                <% for image in micropost.images %>
+                                    <%
+                                        url = url_for(image)
+                                        name = url.split("/").last
+                                    %>
+                                    <div class="image-container">
+                                        <a class="image-link" href="<%= url %>" title="<%= name %>" target="_blank">
+                                            <%= image_tag(url) %>
+                                        </a>
+                                        <% if owned %>
+                                            <%= link_to(
+                                                semantic_icon("trash alternate"), micropost_path(micropost, {"attachment-id" => image.id}),
+                                                class: "image-delete-button",
+                                                title: "Delete",
+                                                data: {
+                                                    turbo_method: :delete,
+                                                    turbo_confirm: 'Are you sure you want to delete this image?'
+                                            }) %>
+                                        <% end %>
+                                    </div>
+                                <% end %>
                             </div>
                         <% end %>
                     </div>
                     
-                    <% if micropost.user == @user %>
+                    <% if owned %>
                         <div class="right floated label">
                             <%= link_to("Delete", micropost, data: {
                                 turbo_method: :delete,

@@ -72,12 +72,36 @@ $(() => {
         .transition('fade');
     });
 
-    $("#micropost_image").on("change", function() {
-        var size_in_megabytes = this.files[0].size/1024/1024;
-        if (size_in_megabytes > 5) {
-            alert("Maximum file size is 5MB. Please choose a smaller file.");
+    $("#micropost_images").on("change", function(ev) {
+        for(let file of ev.currentTarget.files) {
+            let size_in_megabytes = file.size/1024/1024;
+            if (size_in_megabytes > 5) {
+                alert("Maximum file size is 5MB per image. Please choose a smaller file.");
+                ev.preventDefault();
+                return
+            }
         }
     });
 
     $(".ui.accordion").accordion();
+
+    $("#micropost_images").on("change", (ev) => {
+        let files = ev.currentTarget.files;
+        if(files.length > 0) {
+            $("#image-previews-parent").removeAttr("style");
+            $("#image-previews .image-preview").remove();
+            for(file of files) {
+                img = $("#image-preview").clone().appendTo("#image-previews");
+                id = img.attr("id");
+                img.removeAttr("id");
+                img.addClass(id);
+                img.removeAttr("style");
+                img.children("img").attr("src", URL.createObjectURL(file));
+            }
+        } else {
+            $("#image-previews-parent").css("display", "none");
+        }
+    });
+
+    $("#micropost_images").trigger("change");
 });
